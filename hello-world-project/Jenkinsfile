@@ -1,36 +1,12 @@
 pipeline {
-    agent any
-
-    tools {
-        jdk 'JDK17'  // Make sure this matches your Jenkins configured JDK name
-    }
+    agent docker {image 'Hello-World'}
 
     stages {
-        stage('Checkout') {
+        stage('Hello') {
             steps {
-                git 'https://github.com/your-username/your-repo.git'
+                sh 'sudo docker ps -a'
             }
-        }
-
-        stage('Compile') {
-            steps {
-                sh 'javac HelloWorld.java'
-            }
-        }
-
-        stage('Run') {
-            steps {
-                sh 'java HelloWorld'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and execution successful!'
-        }
-        failure {
-            echo 'Build failed!'
         }
     }
 }
+
